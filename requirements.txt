@@ -1,0 +1,3 @@
+pip install requests
+pip install h2
+pip install fake-useragent
